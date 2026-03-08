@@ -315,13 +315,21 @@ No sensitive credentials are stored in GitHub.
 # ✅ Assignment Coverage
 
 ✔ Employee Management
+
 ✔ Attendance Tracking
+
 ✔ RESTful APIs
+
 ✔ Database Persistence
+
 ✔ Server-side Validation
+
 ✔ Error Handling
+
 ✔ Clean Professional UI
+
 ✔ Live Deployment
+
 
 ---
 
