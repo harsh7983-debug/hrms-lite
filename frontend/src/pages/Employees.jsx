@@ -29,11 +29,17 @@ export default function Employees() {
         setLoading(false);
       })
       .catch((err) => {
-        setError(
-          err?.response?.data?.detail ||
-          err?.message ||
-          "Failed to load employees"
-        );
+        const data = err?.response?.data;
+
+        if (data) {
+          const message = Object.values(data)
+            .flat()
+            .join(" ");
+          setError(message);
+        } else {
+          setError("Failed to load employees");
+        }
+
         setLoading(false);
       });
   };
@@ -44,6 +50,7 @@ export default function Employees() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     setError("");
     setSuccess("");
 
@@ -64,21 +71,14 @@ export default function Employees() {
         const data = err?.response?.data;
 
         if (data) {
-          const messages = [];
+          const message = Object.values(data)
+            .map((v) => (Array.isArray(v) ? v.join(" ") : v))
+            .join(" ");
 
-          Object.keys(data).forEach((key) => {
-            if (Array.isArray(data[key])) {
-              messages.push(data[key][0]);
-            }
-          });
-
-          if (messages.length > 0) {
-            setError(messages.join(" "));
-            return;
-          }
+          setError(message);
+        } else {
+          setError("Failed to add employee");
         }
-
-        setError("Failed to add employee");
       });
   };
 
@@ -94,13 +94,19 @@ export default function Employees() {
         setSuccess("Employee deleted successfully.");
         fetchEmployees();
       })
-      .catch((err) =>
-        setError(
-          err?.response?.data?.detail ||
-          err?.message ||
-          "Failed to delete employee"
-        )
-      );
+      .catch((err) => {
+        const data = err?.response?.data;
+
+        if (data) {
+          const message = Object.values(data)
+            .flat()
+            .join(" ");
+
+          setError(message);
+        } else {
+          setError("Failed to delete employee");
+        }
+      });
   };
 
   const filteredEmployees = employees.filter((emp) =>
@@ -113,7 +119,7 @@ export default function Employees() {
     <>
       {/* Header */}
       <div className="mb-10">
-        <h1 className="text-3xl font-semibold text-gray-800 tracking-tight">
+        <h1 className="text-3xl font-semibold text-gray-800">
           Employee Management
         </h1>
         <p className="text-gray-500 mt-2">
@@ -142,10 +148,9 @@ export default function Employees() {
                 onChange={(e) =>
                   setForm({ ...form, [field]: e.target.value })
                 }
-                className="border border-gray-300 rounded-lg px-4 py-2.5 bg-white shadow-sm
+                className="border border-gray-300 rounded-lg px-4 py-2.5
                 focus:ring-2 focus:ring-blue-500
-                focus:border-blue-500 focus:outline-none
-                transition-all duration-200"
+                focus:border-blue-500 focus:outline-none"
                 required
               />
             </div>
@@ -155,8 +160,7 @@ export default function Employees() {
             <button
               type="submit"
               className="w-full bg-blue-600 text-white py-3 rounded-lg
-              shadow-sm hover:bg-blue-700 hover:shadow-md
-              transition-all duration-300 font-medium"
+              hover:bg-blue-700 transition-all font-medium"
             >
               Add Employee
             </button>
@@ -164,7 +168,7 @@ export default function Employees() {
         </form>
       </Card>
 
-      {/* Employee Table */}
+      {/* Employee List */}
       <div className="mt-12">
         {loading ? (
           <div className="flex justify-center py-12">
@@ -174,7 +178,7 @@ export default function Employees() {
           <EmptyState message="No employees found." />
         ) : (
           <Card title="Employee List" subtitle="All registered employees">
-            
+
             {/* Search */}
             <div className="mb-6">
               <input
@@ -188,7 +192,7 @@ export default function Employees() {
               />
             </div>
 
-            <div className="overflow-x-auto rounded-xl border border-gray-100">
+            <div className="overflow-x-auto">
               <table className="w-full text-xs md:text-sm">
                 <thead>
                   <tr className="bg-gray-50 border-b uppercase tracking-wide">
@@ -222,8 +226,7 @@ export default function Employees() {
                         <button
                           onClick={() => handleDelete(emp.id)}
                           className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md
-                          text-red-600 hover:bg-red-50
-                          transition-all font-medium"
+                          text-red-600 hover:bg-red-50 transition-all"
                         >
                           <Trash2 size={15} />
                           Delete
