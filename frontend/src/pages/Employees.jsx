@@ -61,14 +61,24 @@ export default function Employees() {
         fetchEmployees();
       })
       .catch((err) => {
-        const errorData = err?.response?.data;
+        const data = err?.response?.data;
 
-        if (errorData) {
-          const message = Object.values(errorData).flat().join(" ");
-          setError(message);
-        } else {
-          setError("Failed to add employee");
+        if (data) {
+          const messages = [];
+
+          Object.keys(data).forEach((key) => {
+            if (Array.isArray(data[key])) {
+              messages.push(data[key][0]);
+            }
+          });
+
+          if (messages.length > 0) {
+            setError(messages.join(" "));
+            return;
+          }
         }
+
+        setError("Failed to add employee");
       });
   };
 
@@ -93,7 +103,6 @@ export default function Employees() {
       );
   };
 
-  /* Search Filter */
   const filteredEmployees = employees.filter((emp) =>
     `${emp.full_name} ${emp.email} ${emp.employee_id}`
       .toLowerCase()
@@ -102,7 +111,7 @@ export default function Employees() {
 
   return (
     <>
-      {/* Page Header */}
+      {/* Header */}
       <div className="mb-10">
         <h1 className="text-3xl font-semibold text-gray-800 tracking-tight">
           Employee Management
@@ -165,7 +174,7 @@ export default function Employees() {
           <EmptyState message="No employees found." />
         ) : (
           <Card title="Employee List" subtitle="All registered employees">
-
+            
             {/* Search */}
             <div className="mb-6">
               <input
@@ -180,9 +189,9 @@ export default function Employees() {
             </div>
 
             <div className="overflow-x-auto rounded-xl border border-gray-100">
-              <table className="w-full text-sm">
+              <table className="w-full text-xs md:text-sm">
                 <thead>
-                  <tr className="bg-gray-50 border-b text-xs uppercase tracking-wide">
+                  <tr className="bg-gray-50 border-b uppercase tracking-wide">
                     <th className="py-3 px-4 text-left">Employee ID</th>
                     <th className="px-4 text-left">Full Name</th>
                     <th className="px-4 text-left">Email</th>
@@ -203,7 +212,7 @@ export default function Employees() {
 
                       <td className="px-4">{emp.full_name}</td>
 
-                      <td className="px-4 text-gray-600">
+                      <td className="px-4 text-gray-600 break-all">
                         {emp.email}
                       </td>
 
@@ -226,7 +235,6 @@ export default function Employees() {
 
               </table>
             </div>
-
           </Card>
         )}
       </div>
