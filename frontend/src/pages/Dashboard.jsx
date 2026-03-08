@@ -133,7 +133,7 @@ export default function Dashboard() {
           title="Attendance Overview"
           subtitle="Quick visual summary of workforce status"
         >
-          <div className="mt-6" style={{ height: 300 }}>
+          <div className="mt-6 w-full h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={chartData}>
                 <XAxis dataKey="name" />
