@@ -1,82 +1,92 @@
-# 📌 HRMS Lite – Full-Stack Coding Assignment
+📌 **HRMS Lite – Full-Stack Coding Assignment**
 
-## 🚀 Live Application
+---
+
+# 🚀 Live Application
 
 ### 🌐 Frontend (Vercel)
-https://hrms-lite-one-rho.vercel.app/
+
+https://hrms-lite-ten-wine.vercel.app/
 
 ### 🔧 Backend API (Render)
-https://hrms-backend-0r61.onrender.com/
+
+https://hrms-lite-rceo.onrender.com/
 
 ### 📦 GitHub Repository
-https://github.com/amanvrma798-sys/hrms-lite
+
+https://github.com/harsh7983-debug/hrms-lite
 
 ---
 
-## 📖 Project Overview
+# 📖 Project Overview
 
-HRMS Lite is a lightweight Human Resource Management System designed to manage employee records and track daily attendance.
+**HRMS Lite** is a lightweight Human Resource Management System designed to manage employee records and track daily attendance.
 
-This project was developed as part of a Full-Stack Coding Assignment to demonstrate:
+This project was developed as part of a **Full-Stack Coding Assignment** to demonstrate:
 
-- Frontend development
-- Backend REST API design
-- Database modeling & persistence
-- Server-side validation
-- Error handling
-- Production deployment readiness
+* Frontend development
+* Backend REST API design
+* Database modeling & persistence
+* Server-side validation
+* Error handling
+* Production deployment readiness
 
-The focus is on delivering a clean, stable, and realistically usable system without over-engineering.
-
----
-
-## 🛠 Tech Stack
-
-### Frontend
-- React (Vite)
-- Tailwind CSS
-- Axios
-- Lucide React Icons
-
-### Backend
-- Django
-- Django REST Framework
-
-### Database
-- PostgreSQL (Production – Render)
-- SQLite (Optional for local development)
-
-### Deployment
-- Frontend: Vercel
-- Backend: Render
+The focus is on delivering a **clean, stable, and realistically usable system without over-engineering**.
 
 ---
 
-## ✨ Core Features
+# 🛠 Tech Stack
 
-### 1️⃣ Employee Management
+## Frontend
+
+* React (Vite)
+* Tailwind CSS
+* Axios
+* Lucide React Icons
+
+## Backend
+
+* Django
+* Django REST Framework
+
+## Database
+
+* PostgreSQL (Production – Render)
+* SQLite (Optional for local development)
+
+## Deployment
+
+* Frontend: Vercel
+* Backend: Render
+
+---
+
+# ✨ Core Features
+
+## 1️⃣ Employee Management
 
 Admin can:
 
-- Add new employee with:
-  - Employee ID (Unique)
-  - Full Name
-  - Email Address (Validated)
-  - Department
-- View list of employees
-- Delete employees
+* Add new employee with:
 
-#### Server-Side Validation Includes:
+  * Employee ID (Unique)
+  * Full Name
+  * Email Address (Validated)
+  * Department
+* View list of employees
+* Delete employees
 
-- Required field validation
-- Email format validation
-- Duplicate employee ID prevention
-- Duplicate email prevention
-- Proper HTTP status codes (200, 201, 400)
+### Server-Side Validation Includes
 
-#### Example Structured Error Response
+* Required field validation
+* Email format validation
+* Duplicate employee ID prevention
+* Duplicate email prevention
+* Proper HTTP status codes (200, 201, 400)
 
-```json
+Example Structured Error Response:
+
+```
 {
   "employee_id": ["Employee with this ID already exists."]
 }
@@ -84,41 +94,46 @@ Admin can:
 
 ---
 
-### 2️⃣ Attendance Management
+## 2️⃣ Attendance Management
 
 Admin can:
 
-- Mark attendance:
-  - Date
-  - Status (Present / Absent)
-- View attendance records per employee
-- Prevent duplicate attendance for the same employee on the same date
+* Mark attendance:
 
-Database-level unique constraints ensure data integrity.
+  * Date
+  * Status (Present / Absent)
+
+* View attendance records per employee
+
+* Prevent duplicate attendance for the same employee on the same date.
+
+Database-level **unique constraints ensure data integrity**.
 
 ---
 
-### 3️⃣ Dashboard Summary (Bonus Feature)
+## 3️⃣ Dashboard Summary (Bonus Feature)
 
 Dashboard provides:
 
-- Total Employees
-- Present Today
-- Absent Today
+* Total Employees
+* Present Today
+* Absent Today
 
-This gives a quick operational overview of workforce attendance.
+This gives a **quick operational overview of workforce attendance**.
 
 ---
 
-## 🌐 Live API Endpoints
+# 🌐 Live API Endpoints
 
-Base URL:
+### Base URL
 
 ```
-https://hrms-backend-0r61.onrender.com/api/
+https://hrms-lite-rceo.onrender.com/api/
 ```
 
-### 📌 Employees
+---
+
+## 📌 Employees
 
 ```
 GET    /api/employees/
@@ -128,12 +143,14 @@ DELETE /api/employees/{id}/
 
 Live:
 
-- https://hrms-backend-0r61.onrender.com/api/employees/
-- https://hrms-backend-0r61.onrender.com/api/employees/{id}/
+```
+https://hrms-lite-rceo.onrender.com/api/employees/
+https://hrms-lite-rceo.onrender.com/api/employees/{id}/
+```
 
 ---
 
-### 📌 Attendance
+## 📌 Attendance
 
 ```
 POST   /api/attendance/
@@ -143,37 +160,45 @@ GET    /api/attendance/dashboard/
 
 Live:
 
-- https://hrms-backend-0r61.onrender.com/api/attendance/
-- https://hrms-backend-0r61.onrender.com/api/attendance/list/?employee_id=EMP001
-- https://hrms-backend-0r61.onrender.com/api/attendance/dashboard/
+```
+https://hrms-lite-rceo.onrender.com/api/attendance/
+https://hrms-lite-rceo.onrender.com/api/attendance/list/?employee_id=EMP001
+https://hrms-lite-rceo.onrender.com/api/attendance/dashboard/
+```
 
 ---
 
-## 🧪 How To Test (Evaluator Guide)
+# 🧪 How To Test (Evaluator Guide)
 
-1. Open Frontend:
-   https://hrms-lite-one-rho.vercel.app/
+Open Frontend:
 
-2. Go to **Employees**:
-   - Add employee
-   - Try duplicate email → error appears
-   - Try duplicate employee ID → error appears
-   - Delete employee
+```
+https://hrms-lite-ten-wine.vercel.app/
+```
 
-3. Go to **Attendance**:
-   - Select employee
-   - Mark attendance
-   - Try marking same date twice → validation works
+### Go to Employees
 
-4. Go to **Dashboard**:
-   - View total employees
-   - View present & absent counts
+* Add employee
+* Try duplicate email → error appears
+* Try duplicate employee ID → error appears
+* Delete employee
 
-All operations are connected to live PostgreSQL database.
+### Go to Attendance
+
+* Select employee
+* Mark attendance
+* Try marking same date twice → validation works
+
+### Go to Dashboard
+
+* View total employees
+* View present & absent counts
+
+All operations are connected to **live PostgreSQL database**.
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
 ```
 hrms-lite/
@@ -214,23 +239,25 @@ hrms-lite/
 
 ---
 
-## ⚙️ Local Setup
+# ⚙️ Local Setup
 
-### Backend
+## Backend
 
-```bash
+```
 cd backend
 python -m venv venv
 ```
 
-Activate:
+Activate environment:
 
 Windows:
+
 ```
 venv\Scripts\activate
 ```
 
 Mac/Linux:
+
 ```
 source venv/bin/activate
 ```
@@ -255,9 +282,9 @@ python manage.py runserver
 
 ---
 
-### Frontend
+## Frontend
 
-```bash
+```
 cd frontend
 npm install
 npm run dev
@@ -265,41 +292,41 @@ npm run dev
 
 ---
 
-## 🔐 Environment Variables (Production)
+# 🔐 Environment Variables (Production)
 
 Backend uses secure environment variables for:
 
-- SECRET_KEY
-- Database credentials
-- DEBUG flag
+* SECRET_KEY
+* Database credentials
+* DEBUG flag
 
 No sensitive credentials are stored in GitHub.
 
 ---
 
-## ⚠️ Assumptions
+# ⚠️ Assumptions
 
-- Single admin user (no authentication required)
-- Leave management & payroll excluded intentionally
-- Designed as lightweight internal HR tool
-
----
-
-## ✅ Assignment Coverage
-
-- ✔ Employee Management
-- ✔ Attendance Tracking
-- ✔ RESTful APIs
-- ✔ Database Persistence
-- ✔ Server-side Validation
-- ✔ Error Handling
-- ✔ Clean Professional UI
-- ✔ Live Deployment
+* Single admin user (no authentication required)
+* Leave management & payroll excluded intentionally
+* Designed as lightweight internal HR tool
 
 ---
 
-## 👨‍💻 Final Note
+# ✅ Assignment Coverage
 
-This project fulfills all requirements of the Full-Stack Coding Assignment and demonstrates practical full-stack development capability including frontend, backend, database design, validation, and deployment.
+✔ Employee Management
+✔ Attendance Tracking
+✔ RESTful APIs
+✔ Database Persistence
+✔ Server-side Validation
+✔ Error Handling
+✔ Clean Professional UI
+✔ Live Deployment
 
-The application is fully functional, publicly accessible, and production-ready.
+---
+
+# 👨‍💻 Final Note
+
+This project fulfills all requirements of the **Full-Stack Coding Assignment** and demonstrates practical full-stack development capability including frontend, backend, database design, validation, and deployment.
+
+The application is **fully functional, publicly accessible, and production-ready.**
