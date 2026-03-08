@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,10 +33,17 @@ INSTALLED_APPS = [
     'attendance',
 ]
 
+# ==============================
+# Middleware
+# ==============================
+
 MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+
     'corsheaders.middleware.CorsMiddleware',
 
-    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -74,18 +82,15 @@ TEMPLATES = [
 CORS_ALLOW_ALL_ORIGINS = True
 
 # ==============================
-# Database (Render + Local)
+# Database (Render PostgreSQL)
 # ==============================
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hrms_db',
-        'USER': 'postgres',
-        'PASSWORD': 'Aman@293007',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 # ==============================
@@ -106,6 +111,9 @@ REST_FRAMEWORK = {
 # ==============================
 
 STATIC_URL = 'static/'
+
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
