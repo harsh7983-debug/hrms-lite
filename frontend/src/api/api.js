@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://hrms-backend-0r61.onrender.com/api/",
+  baseURL: "https://hrms-lite-rceo.onrender.com/api/"
 });
 
 API.interceptors.response.use(
