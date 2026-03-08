@@ -13,3 +13,10 @@ class EmployeeSerializer(serializers.ModelSerializer):
                 "Employee with this ID already exists."
             )
         return value
+
+    def validate_email(self, value):
+        if Employee.objects.filter(email=value).exists():
+            raise serializers.ValidationError(
+                "Employee with this email already exists."
+            )
+        return value

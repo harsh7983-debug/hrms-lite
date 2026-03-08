@@ -31,8 +31,8 @@ export default function Employees() {
       .catch((err) => {
         setError(
           err?.response?.data?.detail ||
-            err?.message ||
-            "Failed to load employees"
+          err?.message ||
+          "Failed to load employees"
         );
         setLoading(false);
       });
@@ -60,13 +60,16 @@ export default function Employees() {
 
         fetchEmployees();
       })
-      .catch((err) =>
-        setError(
-          err?.response?.data?.detail ||
-            err?.message ||
-            "Failed to add employee"
-        )
-      );
+      .catch((err) => {
+        const errorData = err?.response?.data;
+
+        if (errorData) {
+          const message = Object.values(errorData).flat().join(" ");
+          setError(message);
+        } else {
+          setError("Failed to add employee");
+        }
+      });
   };
 
   const handleDelete = (id) => {
@@ -84,13 +87,13 @@ export default function Employees() {
       .catch((err) =>
         setError(
           err?.response?.data?.detail ||
-            err?.message ||
-            "Failed to delete employee"
+          err?.message ||
+          "Failed to delete employee"
         )
       );
   };
 
-  /* 🔎 Search Filter */
+  /* Search Filter */
   const filteredEmployees = employees.filter((emp) =>
     `${emp.full_name} ${emp.email} ${emp.employee_id}`
       .toLowerCase()
@@ -131,9 +134,9 @@ export default function Employees() {
                   setForm({ ...form, [field]: e.target.value })
                 }
                 className="border border-gray-300 rounded-lg px-4 py-2.5 bg-white shadow-sm
-                           focus:ring-2 focus:ring-blue-500
-                           focus:border-blue-500 focus:outline-none
-                           transition-all duration-200"
+                focus:ring-2 focus:ring-blue-500
+                focus:border-blue-500 focus:outline-none
+                transition-all duration-200"
                 required
               />
             </div>
@@ -143,8 +146,8 @@ export default function Employees() {
             <button
               type="submit"
               className="w-full bg-blue-600 text-white py-3 rounded-lg
-                         shadow-sm hover:bg-blue-700 hover:shadow-md
-                         transition-all duration-300 font-medium"
+              shadow-sm hover:bg-blue-700 hover:shadow-md
+              transition-all duration-300 font-medium"
             >
               Add Employee
             </button>
@@ -162,7 +165,8 @@ export default function Employees() {
           <EmptyState message="No employees found." />
         ) : (
           <Card title="Employee List" subtitle="All registered employees">
-            {/* 🔎 Search Bar */}
+
+            {/* Search */}
             <div className="mb-6">
               <input
                 type="text"
@@ -170,8 +174,8 @@ export default function Employees() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full border border-gray-300 rounded-lg px-4 py-2.5
-                           focus:ring-2 focus:ring-blue-500
-                           focus:border-blue-500 focus:outline-none"
+                focus:ring-2 focus:ring-blue-500
+                focus:border-blue-500 focus:outline-none"
               />
             </div>
 
@@ -209,8 +213,8 @@ export default function Employees() {
                         <button
                           onClick={() => handleDelete(emp.id)}
                           className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md
-                                     text-red-600 hover:bg-red-50
-                                     transition-all font-medium"
+                          text-red-600 hover:bg-red-50
+                          transition-all font-medium"
                         >
                           <Trash2 size={15} />
                           Delete
@@ -219,8 +223,10 @@ export default function Employees() {
                     </tr>
                   ))}
                 </tbody>
+
               </table>
             </div>
+
           </Card>
         )}
       </div>
